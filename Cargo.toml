@@ -7,4 +7,6 @@ edition = "2021"
 
 [dependencies]
 dialoguer = "0.11.0"
-crossterm = "0.26"
+crossterm = "0.27"
+pulldown-cmark = "0.10.0"
+termimad = "0.29.0"

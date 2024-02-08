@@ -9,7 +9,7 @@ pub fn print_header(title: &str, phrase: &str) {
     let mut stdout = std::io::stdout();
     execute!(
         stdout,
-        SetForegroundColor(Color::Magenta),
+        SetForegroundColor(Color::Yellow),
         Print(title),
         Print('\n'),
         ResetColor
