@@ -1,5 +1,7 @@
 use dialoguer::Select;
 
+// use termimad;
+
 mod header;
 mod markdown_render;
 mod tools;
@@ -30,7 +32,7 @@ fn main() {
 
     match menu {
         0 => {
-            println!("Codequest é o jogo para te ensinar a programar com este ambiente de desenvolvimento, utilizando terminal e ferramentas javascript.");
+            termimad::print_text("**CodeQuest** é o jogo para te ensinar a **programar**\n com este ambiente de desenvolvimento,\n utilizando **terminal** e ferramentas do terminal,\n como **Tmux**, **Neovim**, **Git e GitHub**. \n");
             std::process::exit(0);
         }
         1 => {
@@ -40,8 +42,8 @@ fn main() {
             web::web_dev();
         }
         3 => {
-            println!(
-                "As regras são:\n- não use chatgpt.\n- use apenas o que for fornecido a você.\n"
+            termimad::print_text(
+                "As regras são:\n- **não** use chatgpt.\n- use **apenas o que foi fornecido** a você.\n"
             );
             std::process::exit(0);
         }

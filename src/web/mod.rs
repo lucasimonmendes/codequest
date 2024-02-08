@@ -2,7 +2,11 @@ use dialoguer::Select;
 
 use crate::header::print_header;
 
-mod level_one;
+mod level_01;
+mod level_02;
+mod level_03;
+mod level_04;
+mod level_05;
 
 pub fn web_dev() {
     let title = "
@@ -31,19 +35,19 @@ pub fn web_dev() {
 
     match menu {
         0 => {
-            level_one::level_one();
+            level_01::level_one();
         }
         1 => {
-            // level_two::level_two();
+            level_02::level_two();
         }
         2 => {
-            println!("Level 3");
+            level_03::level_three();
         }
         3 => {
-            println!("Level 4");
+            level_04::level_four();
         }
         4 => {
-            println!("Level 5");
+            level_05::level_five();
         }
         5 => {
             println!("Saindo...");
