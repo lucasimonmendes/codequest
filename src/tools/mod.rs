@@ -3,6 +3,7 @@ use dialoguer::Select;
 use crate::header::print_header;
 
 mod level_one;
+mod level_two;
 
 pub fn tools() {
     let title = "
@@ -32,7 +33,7 @@ pub fn tools() {
             level_one::level_one();
         }
         1 => {
-            println!("Level 2");
+            level_two::level_two();
         }
         2 => {
             println!("Level 3");
