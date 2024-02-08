@@ -3,6 +3,7 @@ use dialoguer::Select;
 mod header;
 mod markdown_render;
 mod tools;
+mod web;
 
 fn main() {
     let title = "
@@ -36,7 +37,7 @@ fn main() {
             tools::tools();
         }
         2 => {
-            println!("Web dev trail");
+            web::web_dev();
         }
         3 => {
             println!(
