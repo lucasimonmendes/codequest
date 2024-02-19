@@ -1,7 +1,7 @@
-use dialoguer::Select;
-
-use crate::header::print_header;
 use crate::markdown_render::markdown_render;
+use crate::ui::{print_header, print_menu};
+use crate::ui::{Menu, MenuAction, MenuItem};
+use std::collections::BTreeMap;
 
 pub fn level_one() -> Result<(), Box<dyn std::error::Error>> {
     let title = "
@@ -17,41 +17,43 @@ pub fn level_one() -> Result<(), Box<dyn std::error::Error>> {
 
     print_header(&title, &phrase);
 
-    let menu = Select::new()
-        .item("Referências")
-        .item("Lições")
-        .item("Desafios")
-        .item("Sair")
-        .default(0)
-        .interact()
-        .unwrap();
-
-    match menu {
-        0 => {
-            markdown_render(REFERENCES);
-        }
-        1 => {
-            markdown_render(LESSONS);
-
-            // match markdown {
-            //    Ok(()) => println!("Markdown renderizado com sucesso!"),
-            //    Err(e) => println!("Erro ao renderizar o markdown: {}", e),
-            //}
-        }
-        2 => {
-            markdown_render(CHALLENGES);
-        }
-        3 => {
-            println!("Saindo");
-            std::process::exit(0);
-        }
-        _ => println!("Escolha inválida!"),
-    }
+    let mut main_menu: Menu = BTreeMap::new();
+    main_menu.insert(
+        "1",
+        MenuItem {
+            label: "Referências",
+            action: MenuAction::Execute(references),
+        },
+    );
+    main_menu.insert(
+        "2",
+        MenuItem {
+            label: "Lições",
+            action: MenuAction::Execute(lessons),
+        },
+    );
+    main_menu.insert(
+        "3",
+        MenuItem {
+            label: "Desafios",
+            action: MenuAction::Execute(challenges),
+        },
+    );
+    main_menu.insert(
+        "4",
+        MenuItem {
+            label: "Sair",
+            action: MenuAction::Exit,
+        },
+    );
+    // Exibição do menu principal
+    print_menu(&main_menu);
 
     Ok(())
 }
 
-static REFERENCES: &str = r#"
+fn references() {
+    static REFERENCES: &str = r#"
 # Referências
 
 Use the **↓** and **↑** arrow keys to scroll this page.
@@ -71,7 +73,11 @@ Use any other key to quit the application.
 
 "#;
 
-static LESSONS: &str = r#"# Lições
+    markdown_render(REFERENCES);
+}
+
+fn lessons() {
+    static LESSONS: &str = r#"# Lições
 
 Use the **↓** and **↑** arrow keys to scroll this page.
 Use any other key to quit the application.
@@ -109,7 +115,11 @@ Você irá utilizar o **Git** sempre!
 
 //"#;
 
-static CHALLENGES: &str = r#"
+    markdown_render(LESSONS);
+}
+
+fn challenges() {
+    static CHALLENGES: &str = r#"
 # **Desafios:**
 
 Use the **↓** and **↑** arrow keys to scroll this page.
@@ -201,3 +211,6 @@ Use any other key to quit the application.
 - Faça o push das branches atualizados para o GitHub usando `git push`.
 - Verifique se as alterações estão refletidas no **repositório remoto** no GitHub.
 "#;
+
+    markdown_render(CHALLENGES);
+}

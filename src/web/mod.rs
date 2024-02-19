@@ -1,6 +1,6 @@
-use dialoguer::Select;
-
-use crate::header::print_header;
+use crate::ui::{print_header, print_menu};
+use crate::ui::{Menu, MenuAction, MenuItem};
+use std::collections::BTreeMap;
 
 mod level_01;
 mod level_02;
@@ -22,37 +22,65 @@ pub fn web_dev() {
 
     print_header(&title, &phrase);
 
-    let menu = Select::new()
-        .item("Level 01")
-        .item("Level 02")
-        .item("Level 03")
-        .item("Level 04")
-        .item("Level 05")
-        .item("Sair")
-        .default(0)
-        .interact()
-        .unwrap();
+    let mut main_menu: Menu = BTreeMap::new();
+    main_menu.insert(
+        "1",
+        MenuItem {
+            label: "Level 01",
+            action: MenuAction::Execute(print_level_one),
+        },
+    );
+    main_menu.insert(
+        "2",
+        MenuItem {
+            label: "Level 02",
+            action: MenuAction::Execute(print_level_two),
+        },
+    );
+    main_menu.insert(
+        "3",
+        MenuItem {
+            label: "Level 03",
+            action: MenuAction::Execute(print_level_three),
+        },
+    );
+    main_menu.insert(
+        "4",
+        MenuItem {
+            label: "Level 04",
+            action: MenuAction::Execute(print_level_four),
+        },
+    );
+    main_menu.insert(
+        "5",
+        MenuItem {
+            label: "Level 05",
+            action: MenuAction::Execute(print_level_five),
+        },
+    );
+    main_menu.insert(
+        "6",
+        MenuItem {
+            label: "Sair",
+            action: MenuAction::Exit,
+        },
+    );
+    // Exibição do menu principal
+    print_menu(&main_menu);
+}
 
-    match menu {
-        0 => {
-            level_01::level_one();
-        }
-        1 => {
-            level_02::level_two();
-        }
-        2 => {
-            level_03::level_three();
-        }
-        3 => {
-            level_04::level_four();
-        }
-        4 => {
-            level_05::level_five();
-        }
-        5 => {
-            println!("Saindo...");
-            std::process::exit(0);
-        }
-        _ => println!("Escolha inválida"),
-    }
+fn print_level_one() {
+    level_01::level_one();
+}
+fn print_level_two() {
+    level_02::level_two();
+}
+fn print_level_three() {
+    level_03::level_three();
+}
+fn print_level_four() {
+    level_04::level_four();
+}
+fn print_level_five() {
+    level_05::level_five();
 }

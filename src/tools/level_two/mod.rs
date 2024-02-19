@@ -1,7 +1,7 @@
-use dialoguer::Select;
-
-use crate::header::print_header;
 use crate::markdown_render::markdown_render;
+use crate::ui::{print_header, print_menu};
+use crate::ui::{Menu, MenuAction, MenuItem};
+use std::collections::BTreeMap;
 
 pub fn level_two() -> Result<(), Box<dyn std::error::Error>> {
     let title = "
@@ -18,36 +18,43 @@ pub fn level_two() -> Result<(), Box<dyn std::error::Error>> {
 
     print_header(&title, &phrase);
 
-    let menu = Select::new()
-        .item("Referências")
-        .item("Lições")
-        .item("Desafios")
-        .item("Sair")
-        .default(0)
-        .interact()
-        .unwrap();
-
-    match menu {
-        0 => {
-            markdown_render(REFERENCES);
-        }
-        1 => {
-            markdown_render(LESSONS);
-        }
-        2 => {
-            markdown_render(CHALLENGES);
-        }
-        3 => {
-            println!("Saindo");
-            std::process::exit(0);
-        }
-        _ => println!("Escolha inválida!"),
-    }
+    let mut main_menu: Menu = BTreeMap::new();
+    main_menu.insert(
+        "1",
+        MenuItem {
+            label: "Referências",
+            action: MenuAction::Execute(references),
+        },
+    );
+    main_menu.insert(
+        "2",
+        MenuItem {
+            label: "Lições",
+            action: MenuAction::Execute(lessons),
+        },
+    );
+    main_menu.insert(
+        "3",
+        MenuItem {
+            label: "Desafios",
+            action: MenuAction::Execute(challenges),
+        },
+    );
+    main_menu.insert(
+        "4",
+        MenuItem {
+            label: "Sair",
+            action: MenuAction::Exit,
+        },
+    );
+    // Exibição do menu principal
+    print_menu(&main_menu);
 
     Ok(())
 }
 
-static REFERENCES: &str = r#"
+fn references() {
+    static REFERENCES: &str = r#"
 # Referências
 
 - À partir daqui, haverá menos lições e mais desafios.
@@ -70,7 +77,12 @@ static REFERENCES: &str = r#"
 **Após terminar esse level você estará apto a seguir na trilha Web Dev.**
 
 "#;
-static LESSONS: &str = r#"
+
+    markdown_render(REFERENCES);
+}
+
+fn lessons() {
+    static LESSONS: &str = r#"
 # Lições 
 Agora não há mais lições.
   
@@ -81,7 +93,11 @@ Agora não há mais lições.
   
 "#;
 
-static CHALLENGES: &str = r#"
+    markdown_render(LESSONS);
+}
+
+fn challenges() {
+    static CHALLENGES: &str = r#"
 # Desafios 
   
 **O SEU EDITOR DE TEXTO É O NEOVIM.**
@@ -141,3 +157,6 @@ Sim, você mesmo!
 
 
 "#;
+
+    markdown_render(CHALLENGES);
+}
