@@ -36,8 +36,6 @@ pub fn print_header(title: &str, phrase: &str) {
 }
 
 pub fn print_menu(menu: &Menu) {
-    println!("Escolha uma opção:");
-
     for (key, value) in menu.iter() {
         println!("{}: {}", key, value.label);
     }

@@ -50,38 +50,6 @@ pub fn level_five() -> Result<(), Box<dyn std::error::Error>> {
     // Exibição do menu principal
     print_menu(&main_menu);
 
-    /*
-        let menu = Select::new()
-            .item("Referências")
-            .item("Lições")
-            .item("Desafios")
-            .item("Sair")
-            .default(0)
-            .interact()
-            .unwrap();
-
-        match menu {
-            0 => {
-                markdown_render(REFERENCES);
-            }
-            1 => {
-                markdown_render(LESSONS);
-
-                // match markdown {
-                //    Ok(()) => println!("Markdown renderizado com sucesso!"),
-                //    Err(e) => println!("Erro ao renderizar o markdown: {}", e),
-                //}
-            }
-            2 => {
-                markdown_render(CHALLENGES);
-            }
-            3 => {
-                println!("Saindo");
-                std::process::exit(0);
-            }
-            _ => println!("Escolha inválida!"),
-        }
-    */
     Ok(())
 }
 
